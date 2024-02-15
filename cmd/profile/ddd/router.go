@@ -5,7 +5,7 @@ import (
 	"github.com/lishimeng/profile/cmd/profile/ddd/mfa"
 )
 
-func Router(app *iris.Application) {
+func Route(app *iris.Application) {
 
 	mfa.Route(app.Party("/mfa"))
 }

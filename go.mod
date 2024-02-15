@@ -7,7 +7,6 @@ require (
 	github.com/lib/pq v1.10.9
 	github.com/lishimeng/app-starter v1.16.3
 	github.com/lishimeng/go-log v1.0.0
-	github.com/lishimeng/hufu v1.2.1
 	github.com/lishimeng/x v1.0.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 )

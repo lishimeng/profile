@@ -8,11 +8,9 @@ import (
 	"github.com/lishimeng/app-starter/factory"
 	"github.com/lishimeng/app-starter/persistence"
 	"github.com/lishimeng/app-starter/token"
-	"github.com/lishimeng/hufu/cmd/oauth/ddd"
-	"github.com/lishimeng/hufu/cmd/oauth/static"
-	"github.com/lishimeng/hufu/internal/db/model"
-	"github.com/lishimeng/hufu/internal/etc"
-	"net/http"
+	"github.com/lishimeng/profile/cmd/profile/ddd"
+	model "github.com/lishimeng/profile/internal/db"
+	"github.com/lishimeng/profile/internal/etc"
 	"time"
 )
 import _ "github.com/lib/pq"
@@ -61,9 +59,6 @@ func _main() (err error) {
 			model.Tables()...).
 			SetWebLogLevel("debug").
 			EnableOrmLog().
-			EnableStaticWeb(func() http.FileSystem {
-				return http.FS(static.Static)
-			}).
 			EnableWeb(etc.Config.Web.Listen, ddd.Route).
 			EnableTokenValidator(func(injectFunc app.TokenValidatorInjectFunc) {
 				key := []byte(etc.Config.Token.Key)
