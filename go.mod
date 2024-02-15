@@ -7,6 +7,7 @@ require (
 	github.com/lib/pq v1.10.9
 	github.com/lishimeng/app-starter v1.16.3
 	github.com/lishimeng/go-log v1.0.0
+	github.com/lishimeng/go-sdk v1.1.0
 	github.com/lishimeng/x v1.0.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 )
@@ -27,7 +28,7 @@ require (
 	github.com/flosch/pongo2/v4 v4.0.2 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-redis/cache/v9 v9.0.0 // indirect
-	github.com/go-resty/resty/v2 v2.9.1 // indirect
+	github.com/go-resty/resty/v2 v2.11.0 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/gomarkdown/markdown v0.0.0-20230922112808-5421fefb8386 // indirect
 	github.com/google/uuid v1.6.0 // indirect
@@ -80,7 +81,7 @@ require (
 	go.uber.org/multierr v1.9.0 // indirect
 	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9 // indirect
-	golang.org/x/net v0.15.0 // indirect
+	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.13.0 // indirect

@@ -7,6 +7,7 @@ import (
 	etc2 "github.com/lishimeng/app-starter/etc"
 	"github.com/lishimeng/app-starter/persistence"
 	"github.com/lishimeng/profile/cmd/profile/ddd"
+	"github.com/lishimeng/profile/cmd/profile/setup"
 	model "github.com/lishimeng/profile/internal/db"
 	"github.com/lishimeng/profile/internal/etc"
 	"time"
@@ -58,6 +59,7 @@ func _main() (err error) {
 			SetWebLogLevel("debug").
 			EnableOrmLog().
 			EnableWeb(etc.Config.Web.Listen, ddd.Route).
+			ComponentAfter(setup.Setup).
 			PrintVersion()
 		return err
 	})
