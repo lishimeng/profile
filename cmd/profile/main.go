@@ -5,9 +5,7 @@ import (
 	"fmt"
 	"github.com/lishimeng/app-starter"
 	etc2 "github.com/lishimeng/app-starter/etc"
-	"github.com/lishimeng/app-starter/factory"
 	"github.com/lishimeng/app-starter/persistence"
-	"github.com/lishimeng/app-starter/token"
 	"github.com/lishimeng/profile/cmd/profile/ddd"
 	model "github.com/lishimeng/profile/internal/db"
 	"github.com/lishimeng/profile/internal/etc"
@@ -60,16 +58,6 @@ func _main() (err error) {
 			SetWebLogLevel("debug").
 			EnableOrmLog().
 			EnableWeb(etc.Config.Web.Listen, ddd.Route).
-			EnableTokenValidator(func(injectFunc app.TokenValidatorInjectFunc) {
-				key := []byte(etc.Config.Token.Key)
-				provider := token.NewJwtProvider(
-					token.WithIssuer(etc.Config.Token.Issuer),
-					token.WithAlg(etc.Config.Token.Alg),
-					token.WithKey(key, key))
-				session := token.NewLocalStorage(provider)
-				injectFunc(session)
-				factory.Add(provider)
-			}).
 			PrintVersion()
 		return err
 	})
