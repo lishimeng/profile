@@ -54,7 +54,7 @@ func createProfile(ctx iris.Context) {
 		return
 	}
 
-	p, err := serviceCreateProfile()
+	p, err := serviceCreateProfile(req.Code)
 	if err != nil {
 		log.Info("createProfile fail")
 		log.Info(err)

@@ -19,13 +19,13 @@ func serviceGetProfile(userCode string) (p []model.UserProfile, err error) {
 	return
 }
 
-func serviceCreateProfile() (p model.UserProfile, err error) {
+func serviceCreateProfile(userCode string) (p model.UserProfile, err error) {
 
 	err = app.GetOrm().Transaction(func(ctx persistence.TxContext) (e error) {
 
 		// 创建用户
 		p.Status = app.Enable
-		p.UserCode = createRandCode()
+		p.UserCode = userCode
 		_, e = ctx.Context.Insert(&p)
 		if e != nil {
 			return
