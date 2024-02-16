@@ -8,7 +8,7 @@ import (
 	"github.com/lishimeng/app-starter/persistence"
 	"github.com/lishimeng/profile/cmd/profile/ddd"
 	"github.com/lishimeng/profile/cmd/profile/setup"
-	model "github.com/lishimeng/profile/internal/db"
+	"github.com/lishimeng/profile/internal/db/model"
 	"github.com/lishimeng/profile/internal/etc"
 	"time"
 )

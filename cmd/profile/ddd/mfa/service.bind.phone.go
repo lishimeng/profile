@@ -3,7 +3,7 @@ package mfa
 import (
 	"github.com/lishimeng/app-starter"
 	"github.com/lishimeng/app-starter/persistence"
-	model "github.com/lishimeng/profile/internal/db"
+	"github.com/lishimeng/profile/internal/db/model"
 )
 
 func serviceBindPhoneNumber(mfa string, phoneNumber string) (err error) {

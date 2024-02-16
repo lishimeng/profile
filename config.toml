@@ -1,0 +1,13 @@
+[web]
+listen = ":80"
+
+[fileSystem]
+root = "C:\\lism\\tmp\\localsend"
+domain = "https://localhost"
+
+[geo]
+key = "14b9384d6b53cbd7c88a8e94d3937368"
+
+[wx]
+appid = "wx24097217938dbfae"
+secret = "74ad616ad139ca396aabbdd8955465b9"
