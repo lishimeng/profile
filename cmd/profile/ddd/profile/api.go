@@ -5,6 +5,7 @@ import (
 	"github.com/lishimeng/app-starter"
 	"github.com/lishimeng/app-starter/tool"
 	"github.com/lishimeng/go-log"
+	"github.com/lishimeng/profile/internal/db/model"
 )
 
 type CreateProfileResp struct {
@@ -65,5 +66,55 @@ func createProfile(ctx iris.Context) {
 
 	resp.Code = tool.RespCodeSuccess
 	resp.Id = p.UserCode
+	tool.ResponseJSON(ctx, resp)
+}
+
+type GetProfileResp struct {
+	app.Response
+	UserCode              string `json:"userCode,omitempty"`
+	RealName              string `json:"realName,omitempty"`
+	IdCard                string `json:"idCard,omitempty"`
+	IdCardVerified        bool   `json:"idCardVerified,omitempty"`
+	PhoneNumber           string `json:"PhoneNumber,omitempty"`
+	PhoneNumberVerified   bool   `json:"phoneNumberVerified,omitempty"`
+	WechatUnionId         string `json:"wechatUnionId,omitempty"`
+	WechatUnionIdVerified bool   `json:"wechatUnionIdVerified,omitempty"`
+	CreateTime            int64  `json:"createTime,omitempty"`
+}
+
+func getProfileSpec(ctx iris.Context) {
+	var err error
+	var resp GetProfileResp
+
+	var code = ctx.Params().Get("code")
+	log.Info("get profile, code: %s", code)
+
+	list, err := serviceGetProfile(code)
+	if err != nil {
+		log.Info(err)
+		resp.Code = tool.RespCodeNotFound
+		tool.ResponseJSON(ctx, resp)
+		return
+	}
+
+	if len(list) == 0 {
+		log.Info("no profile of: %s", code)
+		resp.Code = tool.RespCodeNotFound
+		tool.ResponseJSON(ctx, resp)
+		return
+	}
+
+	var p = list[0]
+
+	resp.Code = tool.RespCodeSuccess
+	resp.UserCode = p.UserCode
+	resp.RealName = p.RealName
+	resp.IdCard = p.IdCard
+	resp.IdCardVerified = p.IdCardVerified == model.Verified
+	resp.PhoneNumber = p.PhoneNumber
+	resp.PhoneNumberVerified = p.PhoneNumberVerified == model.Verified
+	resp.WechatUnionId = p.WechatUnionId
+	resp.WechatUnionIdVerified = p.WechatUnionIdVerified == model.Verified
+	resp.CreateTime = p.CreateTime.Unix()
 	tool.ResponseJSON(ctx, resp)
 }

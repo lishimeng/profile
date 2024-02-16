@@ -12,7 +12,8 @@ func serviceGetProfile(userCode string) (p []model.UserProfile, err error) {
 
 	_, err = app.GetOrm().Context.
 		QueryTable(new(model.UserProfile)).
-		Filter("UserCode", userCode).All(&p)
+		Filter("UserCode", userCode).
+		Limit(10).All(&p)
 	if err != nil {
 		return
 	}
