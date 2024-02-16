@@ -47,7 +47,7 @@ const (
 type MfaItem struct {
 	app.Pk
 	MfaCode  string      `orm:"column(mfa_code)"`     // MFA编号
-	Sn       string      `orm:"column(user_code)"`    // 验证编号
+	Sn       string      `orm:"column(sn)"`           // 验证编号
 	Category MfaCategory `orm:"column(mfa_category)"` // 验证类型
 	app.TableChangeInfo
 }
