@@ -9,7 +9,8 @@ import (
 
 func Route(app *iris.Application) {
 
-	mfa.Route(app.Party("/mfa"))
-	profile.Route(app.Party("/profile"))
-	user.Route(app.Party("/user"))
+	root := app.Party("/api")
+	mfa.Route(root.Party("/mfa"))
+	profile.Route(root.Party("/profile"))
+	user.Route(root.Party("/user"))
 }
