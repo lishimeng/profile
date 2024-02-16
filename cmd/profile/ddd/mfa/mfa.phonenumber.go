@@ -6,6 +6,7 @@ import (
 	"github.com/lishimeng/app-starter"
 	"github.com/lishimeng/app-starter/tool"
 	"github.com/lishimeng/go-log"
+	"github.com/lishimeng/profile/internal/sdk"
 	"github.com/lishimeng/profile/internal/store"
 	"github.com/lishimeng/x/util"
 )
@@ -45,6 +46,20 @@ func sendPhoneNumberCode(ctx iris.Context) {
 		GetDefaultStore().
 		Save(fmt.Sprintf(mfaPhoneTpl, mfaCode, randCode), req.PhoneNumber) // 保存
 	// TODO 发送验证码到用户手机
+	sender := sdk.GetSmsSender()
+	if sender == nil {
+		log.Info("sms send tool not found")
+		resp.Code = tool.RespCodeError
+		tool.ResponseJSON(ctx, resp)
+		return
+	}
+	err = sender(req.PhoneNumber, randCode)
+	if err != nil {
+		log.Info(err)
+		resp.Code = tool.RespCodeError
+		tool.ResponseJSON(ctx, resp)
+		return
+	}
 
 	resp.Code = tool.RespCodeSuccess
 	resp.PhoneNumber = req.PhoneNumber
@@ -70,14 +85,12 @@ func bindPhoneNumber(ctx iris.Context) {
 	}
 	var mfaCode = ctx.Params().Get("code")
 	if req.PhoneNumber == "" {
-		// TODO 检查手机号格式
 		log.Info("unknown phone_number %s", req.PhoneNumber)
 		resp.Code = tool.RespCodeNotFound
 		tool.ResponseJSON(ctx, resp)
 		return
 	}
 	if req.Code == "" {
-		// TODO 检查手机号格式
 		log.Info("unknown code %s", req.Code)
 		resp.Code = tool.RespCodeNotFound
 		tool.ResponseJSON(ctx, resp)
@@ -94,7 +107,7 @@ func bindPhoneNumber(ctx iris.Context) {
 		return
 	}
 	if phoneNumber != req.PhoneNumber {
-		log.Info("not match %s[%s] != %s", req.Code, req.PhoneNumber, phoneNumber)
+		log.Info("phone_number is not match %s[%s] != %s", req.Code, req.PhoneNumber, phoneNumber)
 		resp.Code = tool.RespCodeNotFound
 		tool.ResponseJSON(ctx, resp)
 		return

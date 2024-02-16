@@ -17,6 +17,10 @@ func Setup(_ context.Context) (err error) {
 	if err != nil {
 		return
 	}
+	err = initNotifySdk()
+	if err != nil {
+		return
+	}
 	return
 }
 
@@ -58,5 +62,10 @@ func initSdkClient() (err error) {
 		return
 	}
 	sdk.CreateTianditu(tdConfig)
+	return
+}
+
+func initNotifySdk() (err error) {
+	// TODO 初始化notify sdk
 	return
 }
