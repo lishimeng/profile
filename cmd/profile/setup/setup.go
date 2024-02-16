@@ -5,16 +5,24 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"github.com/lishimeng/app-starter"
+	"github.com/lishimeng/app-starter/factory"
 	"github.com/lishimeng/profile/internal/db/model"
 	"github.com/lishimeng/profile/internal/sdk"
+	"github.com/lishimeng/profile/internal/store"
 )
 
 func Setup(_ context.Context) (err error) {
+	initStoreManager()
 	err = initSdkClient()
 	if err != nil {
 		return
 	}
 	return
+}
+
+func initStoreManager() {
+	m := store.NewStoreManager()
+	factory.Add(&m)
 }
 
 func initSdkClient() (err error) {

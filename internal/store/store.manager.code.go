@@ -1,11 +1,16 @@
 package store
 
 import (
+	"github.com/lishimeng/app-starter/factory"
 	"github.com/patrickmn/go-cache"
 	"time"
 )
 
-var Default = NewStoreManager()
+func GetManager() Manager {
+	var m Manager
+	_ = factory.Get(&m)
+	return m
+}
 
 type Manager interface {
 	GetDefaultStore() CodeStore

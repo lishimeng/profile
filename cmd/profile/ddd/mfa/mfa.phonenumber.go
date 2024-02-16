@@ -41,7 +41,9 @@ func sendPhoneNumberCode(ctx iris.Context) {
 	}
 	// 生成验证码
 	randCode := util.RandStr(4)
-	store.Default.GetDefaultStore().Save(fmt.Sprintf(mfaPhoneTpl, mfaCode, randCode), req.PhoneNumber) // 保存
+	store.GetManager().
+		GetDefaultStore().
+		Save(fmt.Sprintf(mfaPhoneTpl, mfaCode, randCode), req.PhoneNumber) // 保存
 	// TODO 发送验证码到用户手机
 
 	resp.Code = tool.RespCodeSuccess
@@ -82,7 +84,9 @@ func bindPhoneNumber(ctx iris.Context) {
 		return
 	}
 
-	phoneNumber, ok := store.Default.GetDefaultStore().Load(fmt.Sprintf(mfaPhoneTpl, mfaCode, req.Code))
+	phoneNumber, ok := store.GetManager().
+		GetDefaultStore().
+		Load(fmt.Sprintf(mfaPhoneTpl, mfaCode, req.Code))
 	if !ok {
 		log.Info("no cache of code %s", req.Code)
 		resp.Code = tool.RespCodeNotFound
