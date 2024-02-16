@@ -8,6 +8,17 @@ import (
 	"strings"
 )
 
+func serviceGetProfile(userCode string) (p []model.UserProfile, err error) {
+
+	_, err = app.GetOrm().Context.
+		QueryTable(new(model.UserProfile)).
+		Filter("UserCode", userCode).All(&p)
+	if err != nil {
+		return
+	}
+	return
+}
+
 func serviceCreateProfile() (p model.UserProfile, err error) {
 
 	err = app.GetOrm().Transaction(func(ctx persistence.TxContext) (e error) {
