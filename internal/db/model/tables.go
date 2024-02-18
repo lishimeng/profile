@@ -26,7 +26,6 @@ const (
 type Mfa struct { // 特定设计, 应减少批量检索MFA item
 	app.Pk
 	MfaCode           string
-	UserCode          string
 	MfaType           MfaCategory
 	SecretPhoneNumber string
 	SecretEmail       string

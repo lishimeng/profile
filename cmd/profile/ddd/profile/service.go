@@ -34,8 +34,7 @@ func serviceCreateProfile(userCode string) (p model.UserProfile, err error) {
 
 		// 创建mfa
 		var mfa model.Mfa
-		mfa.MfaCode = createRandCode()
-		mfa.UserCode = p.UserCode
+		mfa.MfaCode = p.UserCode
 		mfa.MfaType = model.MfaUnknown
 		mfa.Status = app.Enable
 		_, e = ctx.Context.Insert(&mfa)

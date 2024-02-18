@@ -11,10 +11,9 @@ import (
 
 type Spec struct {
 	app.Response
-	MfaCode  string            `json:"mfaCode,omitempty"`
-	UserCode string            `json:"userCode,omitempty"`
-	MfaType  model.MfaCategory `json:"mfaType,omitempty"`
-	Items    []SpecItem        `json:"items,omitempty"`
+	MfaCode string            `json:"mfaCode,omitempty"`
+	MfaType model.MfaCategory `json:"mfaType,omitempty"`
+	Items   []SpecItem        `json:"items,omitempty"`
 }
 
 type SpecItem struct {
@@ -56,7 +55,6 @@ func apiGetMfa(ctx iris.Context) {
 
 	resp.Code = tool.RespCodeSuccess
 	resp.MfaCode = mfa.MfaCode
-	resp.UserCode = mfa.UserCode
 	resp.MfaType = mfa.MfaType
 	if len(items) > 0 {
 		for _, item := range items {
