@@ -25,10 +25,10 @@ const (
 
 type Mfa struct { // 特定设计, 应减少批量检索MFA item
 	app.Pk
-	MfaCode           string
-	MfaType           MfaCategory
-	SecretPhoneNumber string
-	SecretEmail       string
+	MfaCode           string      `orm:"column(mfa_code)"`
+	MfaType           MfaCategory `orm:"column(mfa_type)"`
+	SecretPhoneNumber string      `orm:"column(secret_phone_number)"`
+	SecretEmail       string      `orm:"column(secret_email)"`
 	app.TableChangeInfo
 }
 
