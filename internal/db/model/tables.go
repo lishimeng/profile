@@ -5,14 +5,10 @@ import "github.com/lishimeng/app-starter"
 // UserProfile 用户档案,每个用户必须有
 type UserProfile struct {
 	app.Pk
-	UserCode              string     `orm:"column(user_code)"`                // 用户编号
-	RealName              string     `orm:"column(real_name)"`                // 真实姓名
-	IdCard                string     `orm:"column(id_card)"`                  // 身份证号
-	IdCardVerified        VerifyFlag `orm:"column(id_card_verified)"`         // 身份证号验证标记
-	PhoneNumber           string     `orm:"column(phone_number)"`             // 手机号
-	PhoneNumberVerified   VerifyFlag `orm:"column(phone_number_verified)"`    // 手机号验证标记
-	WechatUnionId         string     `orm:"column(wechat_union_id)"`          // 微信UnionId
-	WechatUnionIdVerified VerifyFlag `orm:"column(wechat_union_id_verified)"` // 微信UnionId验证标记
+	UserCode       string     `orm:"column(user_code)"`        // 用户编号
+	RealName       string     `orm:"column(real_name)"`        // 真实姓名
+	IdCard         string     `orm:"column(id_card)"`          // 身份证号
+	IdCardVerified VerifyFlag `orm:"column(id_card_verified)"` // 身份证号验证标记
 	app.TableChangeInfo
 }
 
@@ -38,7 +34,7 @@ const (
 	MfaUnknown     MfaCategory = "unknown"                 // 未指定
 	MfaPhoneNumber MfaCategory = "phone_number"            // 手机号
 	MfaEmail       MfaCategory = "email"                   //  邮箱
-	MfaWechat      MfaCategory = "wechat"                  // 微信消息
+	MfaWechat      MfaCategory = "wechat"                  // 微信(union_id优先)
 	MfaGoogle      MfaCategory = "google_authenticator"    // google验证器
 	MfaMicrosoft   MfaCategory = "microsoft_authenticator" // 微软验证器
 )

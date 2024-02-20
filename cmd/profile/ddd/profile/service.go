@@ -4,8 +4,6 @@ import (
 	"github.com/lishimeng/app-starter"
 	"github.com/lishimeng/app-starter/persistence"
 	"github.com/lishimeng/profile/internal/db/model"
-	"github.com/lishimeng/x/util"
-	"strings"
 )
 
 func serviceGetProfile(userCode string) (p []model.UserProfile, err error) {
@@ -46,10 +44,4 @@ func serviceCreateProfile(userCode string) (p model.UserProfile, err error) {
 	})
 
 	return
-}
-
-func createRandCode() string {
-	code := util.UUIDString()
-	code = strings.ToLower(strings.ReplaceAll(code, "-", ""))
-	return code
 }

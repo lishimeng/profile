@@ -9,5 +9,6 @@ func Route(root iris.Party) {
 	root.Post("/{code}/email", bindEmail)
 	root.Post("/{code}/email/{email}", sendEmailCode)
 	root.Post("/{code}/wechat", bindWechat)
+	//root.Post("/{code}/wechat", bindWechat)
 	root.Get("/{code}", apiGetMfa)
 }
