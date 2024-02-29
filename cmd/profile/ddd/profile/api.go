@@ -3,8 +3,10 @@ package profile
 import (
 	"github.com/kataras/iris/v12"
 	"github.com/lishimeng/app-starter"
+	"github.com/lishimeng/app-starter/amqp/rabbit"
 	"github.com/lishimeng/app-starter/tool"
 	"github.com/lishimeng/go-log"
+	"github.com/lishimeng/profile/cmd/profile/models"
 	"github.com/lishimeng/profile/internal/db/model"
 )
 
@@ -14,7 +16,7 @@ type CreateProfileResp struct {
 }
 
 type CreateProfileReq struct {
-	Code string `json:"code,omitempty"`
+	Code string `json:"code,omitempty"` // user code
 }
 
 func createProfile(ctx iris.Context) {
@@ -55,17 +57,24 @@ func createProfile(ctx iris.Context) {
 		return
 	}
 
-	p, err := serviceCreateProfile(req.Code)
+	var mqReq models.BasicProfileCreate
+	mqReq.Uid = req.Code
+	var tx = rabbit.Message{
+		Payload: mqReq,
+		Router:  rabbit.Route{Exchange: rabbit.DefaultExchange, Key: "mq_profile_create"},
+	}
+	tx.SetOption(rabbit.UUIDMsgIdOption, rabbit.JsonEncodeOption)
+	err = app.GetAmqp().Publish(tx)
 	if err != nil {
-		log.Info("createProfile fail")
 		log.Info(err)
 		resp.Code = tool.RespCodeError
+		resp.Message = "duplicate user_code"
 		tool.ResponseJSON(ctx, resp)
 		return
 	}
 
 	resp.Code = tool.RespCodeSuccess
-	resp.Id = p.UserCode
+	resp.Id = req.Code
 	tool.ResponseJSON(ctx, resp)
 }
 
@@ -111,10 +120,6 @@ func getProfileSpec(ctx iris.Context) {
 	resp.RealName = p.RealName
 	resp.IdCard = p.IdCard
 	resp.IdCardVerified = p.IdCardVerified == model.Verified
-	resp.PhoneNumber = p.PhoneNumber
-	resp.PhoneNumberVerified = p.PhoneNumberVerified == model.Verified
-	resp.WechatUnionId = p.WechatUnionId
-	resp.WechatUnionIdVerified = p.WechatUnionIdVerified == model.Verified
 	resp.CreateTime = p.CreateTime.Unix()
 	tool.ResponseJSON(ctx, resp)
 }

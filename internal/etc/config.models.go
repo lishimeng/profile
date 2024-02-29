@@ -1,13 +1,14 @@
 package etc
 
 type Configuration struct {
-	Db    db
-	Web   web
-	Redis redis
+	Db    db    `toml:"db"`
+	Web   web   `toml:"web"`
+	Mq    mq    `toml:"mq"`
+	Redis redis `toml:"redis"`
 }
 
 type web struct {
-	Listen string
+	Listen string `toml:"listen"`
 }
 
 type redis struct {
@@ -24,4 +25,7 @@ type db struct {
 	Port     int
 	Database string
 	Ssl      string
+}
+type mq struct {
+	Conn string `toml:"conn"`
 }

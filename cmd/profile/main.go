@@ -4,9 +4,11 @@ import (
 	"context"
 	"fmt"
 	"github.com/lishimeng/app-starter"
+	"github.com/lishimeng/app-starter/amqp"
 	etc2 "github.com/lishimeng/app-starter/etc"
 	"github.com/lishimeng/app-starter/persistence"
 	"github.com/lishimeng/profile/cmd/profile/ddd"
+	"github.com/lishimeng/profile/cmd/profile/mq"
 	"github.com/lishimeng/profile/cmd/profile/setup"
 	"github.com/lishimeng/profile/internal/db/model"
 	"github.com/lishimeng/profile/internal/etc"
@@ -58,6 +60,8 @@ func _main() (err error) {
 			model.Tables()...).
 			SetWebLogLevel("debug").
 			EnableOrmLog().
+			EnableAmqp(amqp.Connector{Conn: etc.Config.Mq.Conn}).
+			RegisterAmqpHandlers(mq.Handlers()...).
 			EnableWeb(etc.Config.Web.Listen, ddd.Route).
 			ComponentAfter(setup.Setup).
 			PrintVersion()

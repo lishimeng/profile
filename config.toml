@@ -8,3 +8,6 @@ host = "localhost"
 port = 5432
 database = "profile"
 ssl = "disable" #require/verify-full/verify-ca/disable
+
+[mq]
+conn = "amqp://user:password@127.0.0.1:5672/"
