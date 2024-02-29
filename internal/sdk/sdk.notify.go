@@ -1,6 +1,6 @@
 package sdk
 
-import "github.com/lishimeng/app-starter/factory"
+import "github.com/lishimeng/x/factory"
 
 type SendSms func(code, mobile string) error
 type SendEmail func(code, email string) error

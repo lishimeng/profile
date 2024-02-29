@@ -3,10 +3,10 @@ package mfa
 import (
 	"github.com/kataras/iris/v12"
 	"github.com/lishimeng/app-starter"
-	"github.com/lishimeng/app-starter/factory"
 	"github.com/lishimeng/app-starter/tool"
 	"github.com/lishimeng/go-log"
 	"github.com/lishimeng/go-sdk/wechat"
+	"github.com/lishimeng/x/factory"
 )
 
 type WechatBindReq struct {

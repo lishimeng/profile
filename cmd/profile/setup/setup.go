@@ -5,10 +5,10 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"github.com/lishimeng/app-starter"
-	"github.com/lishimeng/app-starter/factory"
 	"github.com/lishimeng/profile/internal/db/model"
 	"github.com/lishimeng/profile/internal/sdk"
 	"github.com/lishimeng/profile/internal/store"
+	"github.com/lishimeng/x/factory"
 )
 
 func Setup(_ context.Context) (err error) {

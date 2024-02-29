@@ -1,7 +1,7 @@
 package store
 
 import (
-	"github.com/lishimeng/app-starter/factory"
+	"github.com/lishimeng/x/factory"
 	"github.com/patrickmn/go-cache"
 	"time"
 )

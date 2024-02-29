@@ -1,9 +1,9 @@
 package sdk
 
 import (
-	"github.com/lishimeng/app-starter/factory"
 	"github.com/lishimeng/go-log"
 	"github.com/lishimeng/go-sdk/tianditu"
+	"github.com/lishimeng/x/factory"
 )
 
 func CreateTianditu(config TiandituConfig) {

@@ -5,7 +5,7 @@ go 1.21.3
 require (
 	github.com/kataras/iris/v12 v12.2.10
 	github.com/lib/pq v1.10.9
-	github.com/lishimeng/app-starter v1.17.0
+	github.com/lishimeng/app-starter v1.17.1
 	github.com/lishimeng/go-log v1.0.0
 	github.com/lishimeng/go-sdk v1.1.0
 	github.com/lishimeng/x v1.1.1
